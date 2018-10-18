@@ -23,7 +23,7 @@ public class App {
 	    StatusListener feed = new StatusListener(){
 	        public void onStatus(Status status) {
 	        	long tweetid = status.getId();
-	        	if(status.getUser().getId() == 624413 || status.getUser().getId() == 3108351 || status.getUser().getId() == 40533912 ||
+	        	if(status.getUser().getId() == 624413 || status.getUser().getId() == 28140646 || status.getUser().getId() == 40533912 ||
 	        	status.getUser().getId() == 15568127) {
 	        		try {
 						twitter.retweetStatus(tweetid);
@@ -55,10 +55,10 @@ public class App {
 	public static Twitter getTwitterInstance() {
     ConfigurationBuilder cb = new ConfigurationBuilder();
     cb.setDebugEnabled(true)
-    	  .setOAuthConsumerKey("*************")
-    	  .setOAuthConsumerSecret("**************")
-		    .setOAuthAccessToken("***************")
-	      .setOAuthAccessTokenSecret("****************");
+    	  .setOAuthConsumerKey("*****")
+    	  .setOAuthConsumerSecret("****")
+		    .setOAuthAccessToken("****")
+	      .setOAuthAccessTokenSecret("****");
 
     TwitterFactory tf = new TwitterFactory(cb.build());
 		Twitter twitter = tf.getInstance();
@@ -67,48 +67,17 @@ public class App {
 
   public static TwitterStream getTwitterStreamInstance() {
     ConfigurationBuilder cb = new ConfigurationBuilder();
-    cb.setDebugEnabled(true)
-    	  .setOAuthConsumerKey("********************")
-    	  .setOAuthConsumerSecret("*****************")
-		    .setOAuthAccessToken("**********************")
-	      .setOAuthAccessTokenSecret("********************");
+		cb.setDebugEnabled(true)
+				.setOAuthConsumerKey("*****")
+				.setOAuthConsumerSecret("****")
+				.setOAuthAccessToken("****")
+				.setOAuthAccessTokenSecret("****");
 
     TwitterStreamFactory tf = new TwitterStreamFactory(cb.build());
     TwitterStream twitter = tf.getInstance();
     return twitter;
   }
 
-
-
-
-	public static String createTweet(String tweet) throws TwitterException {
-		Twitter twitter = getTwitterInstance();
-		Status status = twitter.updateStatus(tweet);
-		return status.getText();
-	}
-
-	public static String reTweet(Long statusId) throws TwitterException {
-		Twitter twitter = getTwitterInstance();
-		Status status = twitter.retweetStatus(statusId);
-		return " ";
-	}
-
-	public static long[] isFollowing() throws TwitterException {
-		Twitter twitter = getTwitterInstance();
-		IDs ids;
-		long [] friends;
-		ids = twitter.getFriendsIDs(100);
-		friends = ids.getIDs();
-		return friends;
-	}
-
-	public static boolean compareIDs(long[] a, long b) {
-		for(int i = 0; i < a.length; i++) {
-			if(a[i] == b)
-				return true;
-		}
-		return false;
-	}
 
 
 }
