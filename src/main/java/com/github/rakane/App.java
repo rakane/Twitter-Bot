@@ -20,6 +20,7 @@ public class App {
 	public static void main(String[] args) throws TwitterException, IOException {
 		Twitter twitter = getTwitterInstance();
 
+			//defines status listener
 	    StatusListener feed = new StatusListener(){
 	        public void onStatus(Status status) {
 	        	long tweetid = status.getId();
@@ -44,40 +45,48 @@ public class App {
 			    public void onStallWarning(StallWarning warning) {}
 	    };
 
+			//creates query to get tweets only from the four accounts
 	    FilterQuery query = new FilterQuery();
 	    query.follow(new long [] {624413, 28140646, 40533912, 15568127});
 	    query.language("en");
+
+			//adds listener for TwitterStream and filters based on query
 	    TwitterStream twitterFeed = getTwitterStreamInstance();
 	    twitterFeed.addListener(feed);
 	    twitterFeed.filter(query);
 	}
 
+	/**
+	*  creates twitter instance using ConfigurationBuilder and user OAuth token and key
+	*  @return Twitter instance for user account
+	**/
 	public static Twitter getTwitterInstance() {
     ConfigurationBuilder cb = new ConfigurationBuilder();
     cb.setDebugEnabled(true)
-    	  .setOAuthConsumerKey("*****")
-    	  .setOAuthConsumerSecret("****")
-		    .setOAuthAccessToken("****")
-	      .setOAuthAccessTokenSecret("****");
+    	  .setOAuthConsumerKey("***")
+    	  .setOAuthConsumerSecret("***")
+		    .setOAuthAccessToken("***")
+	      .setOAuthAccessTokenSecret("***");
 
     TwitterFactory tf = new TwitterFactory(cb.build());
 		Twitter twitter = tf.getInstance();
 		return twitter;
   }
 
+	/**
+	*  creates TwitterStream instance using ConfigurationBuilder and user OAuth token and key
+	*  @return TwitterStream instance for user account
+	**/
   public static TwitterStream getTwitterStreamInstance() {
     ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true)
-				.setOAuthConsumerKey("*****")
-				.setOAuthConsumerSecret("****")
-				.setOAuthAccessToken("****")
-				.setOAuthAccessTokenSecret("****");
+				.setOAuthConsumerKey("***")
+				.setOAuthConsumerSecret("***")
+				.setOAuthAccessToken("***")
+				.setOAuthAccessTokenSecret("***");
 
     TwitterStreamFactory tf = new TwitterStreamFactory(cb.build());
     TwitterStream twitter = tf.getInstance();
     return twitter;
   }
-
-
-
 }
